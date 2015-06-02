@@ -1,0 +1,1 @@
+@PowerShell.exe -File "%~dp0add_local_admin_remotely.ps1"

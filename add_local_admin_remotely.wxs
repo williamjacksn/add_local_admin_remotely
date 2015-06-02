@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="CB62CFD2-8FB8-450A-8809-D3AE23A6C246"
+             Name="Add Local Admin Remotely"
+             Manufacturer="William Jackson"
+             UpgradeCode="C05E6A53-2FF6-4646-A182-63C7AED685B4"
+             Language="1033"
+             Codepage="1252"
+             Version="1.0.0">
+        <Package Id="*"
+                 Keywords="Installer"
+                 Description="Installer for Add Local Admin Remotely 1.0.0"
+                 Comments="Add Local Admin Remotely 1.0.0 by William Jackson"
+                 Manufacturer="William Jackson"
+                 InstallerVersion="100"
+                 Languages="1033"
+                 Compressed="yes"
+                 SummaryCodepage="1252"
+                 InstallScope="perMachine" />
+        <Media Id="1" Cabinet="add_local_admin_remotely.cab" EmbedCab="yes" />
+        <Icon Id="lock.ico" SourceFile="lock.ico" />
+        <Property Id="ARPPRODUCTICON" Value="lock.ico" />
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="APPLICATIONROOTDIRECTORY" Name="Add Local Admin Remotely" />
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Add Local Admin Remotely" />
+            </Directory>
+        </Directory>
+
+        <DirectoryRef Id="APPLICATIONROOTDIRECTORY">
+            <Component Id="add_local_admin_remotely.ps1" Guid="128963D4-C5A3-4E29-B6E3-1ABCE61C31DA">
+                <File Id="add_local_admin_remotely.ps1" Source="add_local_admin_remotely.ps1" KeyPath="yes" />
+            </Component>
+            <Component Id="add_local_admin_remotely.bat" Guid="7B7E08A0-88ED-4AFF-8EC1-244B9EBD4735">
+                <File Id="add_local_admin_remotely.bat" Source="add_local_admin_remotely.bat" KeyPath="yes">
+                    <Shortcut Id="add_local_admin_remotely_shortcut"
+                              Advertise="yes"
+                              Name="Add Local Admin Remotely"
+                              Directory="ApplicationProgramsFolder"
+                              Icon="lock.ico" />
+                </File>
+                <RemoveFolder Id="ApplicationProgramsFolderRemove" Directory="ApplicationProgramsFolder" On="uninstall" />
+            </Component>
+        </DirectoryRef>
+
+        <Feature Id="MainApplication" Title="Main Application" Level="1">
+            <ComponentRef Id="add_local_admin_remotely.ps1" />
+            <ComponentRef Id="add_local_admin_remotely.bat" />
+        </Feature>
+    </Product>
+</Wix>
